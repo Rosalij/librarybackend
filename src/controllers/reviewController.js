@@ -46,7 +46,7 @@ exports.updateReview = async (req, res) => {
   } catch (error) {
     res.status(400).json({ message: "Update failed" });
   }
-};
+}; 
 
 // Delete a review
 exports.deleteReview = async (req, res) => {
