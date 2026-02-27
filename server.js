@@ -5,8 +5,8 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 // Import routes
-const authRoutes = require("./routes/authRoutes");
-const reviewRoutes = require("./routes/reviewRoutes");
+const authRoutes = require("./src/routes/authRoutes");
+const reviewRoutes = require("./src/routes/reviewRoutes");
 
 const app = express();
 // Middleware
