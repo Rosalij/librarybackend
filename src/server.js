@@ -6,6 +6,9 @@ require("dotenv").config();
 // Import routes
 const authRoutes = require("./routes/authRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
+const bookRoutes = require("./routes/bookRoutes");
+
+
 
 const app = express();
 
@@ -16,7 +19,7 @@ app.use(express.json());
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/reviews", reviewRoutes);
-
+app.use("/api/books", bookRoutes);
 // Root route
 app.get("/", (req, res) => {
   res.send("Server is running!");
