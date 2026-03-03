@@ -29,6 +29,19 @@ exports.getReviewsByBook = async (req, res) => {
   }
 };
 
+// Get reviews by logged-in user
+exports.getMyReviews = async (req, res) => {
+  try {
+    const reviews = await Review.find({ user: req.user.id })
+      .sort({ createdAt: -1 });
+
+    res.json(reviews);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch user reviews" });
+  }
+};
+
+
 // Update review
 exports.updateReview = async (req, res) => {
   try {
