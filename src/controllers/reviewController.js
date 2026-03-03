@@ -59,3 +59,17 @@ exports.deleteReview = async (req, res) => {
     res.status(400).json({ message: "Delete failed" });
   }
 };
+
+// Get latest reviews
+exports.getLatestReviews = async (req, res) => {
+  try {
+    const reviews = await Review.find()
+      .sort({ createdAt: -1 }) // newest first
+      .limit(5) 
+      .populate("user", "username");
+
+    res.json(reviews);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch latest reviews" });
+  }
+};
