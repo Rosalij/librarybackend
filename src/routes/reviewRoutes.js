@@ -4,6 +4,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 const {
   createReview,
   getReviewsByBook,
+  getMyReviews,
   updateReview,
   deleteReview,
   getLatestReviews
