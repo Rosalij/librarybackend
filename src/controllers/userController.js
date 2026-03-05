@@ -1,14 +1,21 @@
 const User = require("../models/User");
 
 // GET /api/users
+// GET /api/users
 exports.getAllUsers = async (req, res) => {
   try {
-    const users = await User.find().select("username email createdAt");
-    res.json(users);
+    const users = await User.find()
+      .select("username createdAt") 
+      .sort({ username: 1 });
+
+    res.status(200).json(users);
+
   } catch (err) {
+    console.error("Get users error:", err);
     res.status(500).json({ message: "Server error" });
   }
 };
+
 
 
 // GET /api/users/me/saved
