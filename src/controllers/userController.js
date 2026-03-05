@@ -1,17 +1,15 @@
 const User = require("../models/User");
 
+
 // GET /api/users
-// GET /api/users
+
+
 exports.getAllUsers = async (req, res) => {
   try {
-    const users = await User.find()
-      .select("username") 
-      .sort({ username: 1 });
-
-    res.status(200).json(users);
-
+    const users = await User.find().select("username");
+    res.json(users);
   } catch (err) {
-    console.error("Get users error:", err);
+    console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 };
