@@ -6,7 +6,7 @@ const User = require("../models/User");
 
 exports.getAllUsers = async (req, res) => {
   try {
-  const users = await User.find().select("_id username");
+  const users = await User.find().select("id username");
 
     res.json(users);
   } catch (err) {
@@ -20,7 +20,7 @@ exports.getAllUsers = async (req, res) => {
 // GET /api/users/me/saved
 exports.getSavedUsers = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id).populate(
+    const user = await User.findById(req.user.id).populate(
       "savedUsers",
       "username"
     );
@@ -42,7 +42,7 @@ exports.saveUser = async (req, res) => {
   try {
     const targetUserId = req.params.id;
 
-    if (targetUserId === req.user._id.toString()) {
+    if (targetUserId === req.user.id.toString()) {
       return res.status(400).json({ message: "You cannot save yourself" });
     }
 
@@ -51,7 +51,7 @@ exports.saveUser = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const currentUser = await User.findById(req.user._id);
+    const currentUser = await User.findById(req.user.id);
 
     if (currentUser.savedUsers.includes(targetUserId)) {
       return res.status(400).json({ message: "User already saved" });
@@ -75,7 +75,7 @@ exports.saveUser = async (req, res) => {
 // DELETE /api/users/:id/save
 exports.removeSavedUser = async (req, res) => {
   try {
-    const currentUser = await User.findById(req.user._id);
+    const currentUser = await User.findById(req.user.id);
 
     currentUser.savedUsers = currentUser.savedUsers.filter(
       (id) => id.toString() !== req.params.id
