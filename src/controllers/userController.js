@@ -112,3 +112,20 @@ exports.getUserProfile = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+
+// Get reviews by any user
+exports.getUserReviews = async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    const reviews = await Review.find({ user: userId })
+      .sort({ createdAt: -1 }) // newest first
+      .populate("user", "username"); // include username of reviewer
+
+    res.json(reviews);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to fetch user reviews" });
+  }
+};
